@@ -1,0 +1,16 @@
+{
+    "name": "petitchevalroux/newswatcher-www",
+    "description": "Newswatcher website",
+    "require": {
+        "petitchevalroux/php-jsonapi": "~0.0",
+        "slim/slim": "~2.6",
+        "mustache/mustache": "~2.8"
+    },
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Patrick Poulain",
+            "email": "petitchevalroux@free.fr"
+        }
+    ]
+}
