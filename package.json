@@ -1,0 +1,21 @@
+{
+  "name": "newswatcher-www",
+  "version": "1.0.0",
+  "description": "Newswatcher Website",
+  "scripts": {
+    "test": "make tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/petitchevalroux/newswatcher-www.git"
+  },
+  "author": "Patrick Poulain <petitchevalroux@free.fr>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/petitchevalroux/newswatcher-www/issues"
+  },
+  "homepage": "https://github.com/petitchevalroux/newswatcher-www#readme",
+  "dependencies": {
+    "bootstrap": "^3.3.5"
+  }
+}
