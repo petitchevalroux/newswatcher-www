@@ -8,6 +8,11 @@
         "petitchevalroux/di": "0.0.1.*"
     },
     "license": "GPL",
+    "autoload": {
+        "psr-4": {
+            "NwWebsite\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "Patrick Poulain",
