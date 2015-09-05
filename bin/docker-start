@@ -1,0 +1,36 @@
+#!/usr/bin/env php
+<?php
+require __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
+
+use NwWebsite\Di;
+
+$di = Di::getInstance();
+
+system('cd '.escapeshellarg($di->rootPath));
+system('pwd');
+
+$config = $di->config->get('docker');
+
+// If container already exist, remove it
+if (trim(shell_exec('docker ps -a | egrep '.escapeshellarg($config->httpContainerName).' | wc -l')) !== '0') {
+    system('docker rm -f '.escapeshellarg($config->httpContainerName));
+}
+
+// Build http image
+$dockerHttpImage = trim(shell_exec("docker build . | egrep -o 'Successfully built [a-zA-Z0-9]+' | sed -e 's~Successfully built ~~'"));
+
+system('docker run -d '
+        .'--name '.escapeshellarg($config->httpContainerName).' '
+        .'-p '.escapeshellarg($config->httpPort).':80 '
+        .'-v '.escapeshellarg($di->rootPath).':/data/http '.escapeshellarg($dockerHttpImage)
+);
+
+echo 'Docker http: ';
+// Check if http container is running
+if (trim(shell_exec('docker ps | egrep '.escapeshellarg($config->httpContainerName).' | wc -l')) !== '0') {
+    echo '[OK]';
+    exit(0);
+} else {
+    echo '[KO]';
+    exit(1);
+}
