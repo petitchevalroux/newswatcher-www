@@ -7,6 +7,9 @@ namespace NwWebsite;
  * @property \Slim\Slim $slim framework object
  * @property string $rootPath directory containing the whole project
  * @property \ConfigurationFactory\Factory $config configuration factory
+ * @property string $templatePath directory containing templates
+ * @property \Mustache_Engine $mustache mustache template engine
+ * @property Layouts\Html $layoutHtml html layout
  */
 class Di extends \Di\Di
 {

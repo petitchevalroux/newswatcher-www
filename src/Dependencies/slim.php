@@ -16,10 +16,20 @@ if ($di->env === ENV_DEVELOPMENT) {
 $app = new Slim([
     'mode' => $slimMode,
     'debug' => $debug,
+    'view' => $di->layoutHtml,
         ]);
 
-$app->get('/hello/:name', function ($name) {
-    echo "Hello, $name";
+$app->get('/hello/:name', function ($name) use ($app) {
+    $app->render("Hello, $name");
+});
+
+$app->notFound(function () use ($app) {
+    $status = 404;
+    $app->response->setStatus($status);
+    $app->render('error', [
+        'errno' => $status,
+        'message' => $app->response->getMessageForCode($status),
+    ]);
 });
 
 return $app;
