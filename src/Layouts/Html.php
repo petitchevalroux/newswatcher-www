@@ -34,6 +34,14 @@ class Html extends \Slim\View
         $this->htmlData['htmlTitle'] = $title;
     }
 
+    public function addCss($css)
+    {
+        if (!isset($this->htmlData['css'])) {
+            $this->htmlData['css'] = [];
+        }
+        $this->htmlData['css'][] = $css;
+    }
+
     public function display($template, $data = null)
     {
         $di = Di::getInstance();
