@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "02b40550659b38906c83e64ec8e42928",
+    "hash": "7a1c726c32077ba4039b04ef11535684",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -222,6 +222,43 @@
                 "templating"
             ],
             "time": "2015-04-01 06:37:33"
+        },
+        {
+            "name": "petitchevalroux/configuration-factory",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/petitchevalroux/php-configuration-factory.git",
+                "reference": "94dfa809f0739dfbcb0d8996ba22af6afe786428"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/petitchevalroux/php-configuration-factory/zipball/94dfa809f0739dfbcb0d8996ba22af6afe786428",
+                "reference": "94dfa809f0739dfbcb0d8996ba22af6afe786428",
+                "shasum": ""
+            },
+            "require-dev": {
+                "fzaninotto/faker": "~1.5",
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ConfigurationFactory\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Patrick Poulain",
+                    "email": "petitchevalroux@free.fr"
+                }
+            ],
+            "description": "Configuration Factory to load configuration's variables",
+            "time": "2015-09-05 08:55:11"
         },
         {
             "name": "petitchevalroux/di",
