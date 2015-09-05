@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "69d86e32dcd764656a48b815c22b7be3",
+    "hash": "076d418de9a49cae06b7a05f20ca72dc",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -224,6 +224,46 @@
             "time": "2015-04-01 06:37:33"
         },
         {
+            "name": "petitchevalroux/di",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/petitchevalroux/php-di.git",
+                "reference": "e48c35b80098e73f1e847ddcec53885846ba6b69"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/petitchevalroux/php-di/zipball/e48c35b80098e73f1e847ddcec53885846ba6b69",
+                "reference": "e48c35b80098e73f1e847ddcec53885846ba6b69",
+                "shasum": ""
+            },
+            "require": {
+                "petitchevalroux/singleton": "0.0.1.*"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "~1.5",
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Di\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Patrick Poulain",
+                    "email": "petitchevalroux@free.fr"
+                }
+            ],
+            "description": "Simple DI for boostraping dependencies based on require file",
+            "time": "2015-09-04 13:39:47"
+        },
+        {
             "name": "petitchevalroux/php-jsonapi",
             "version": "0.0.0",
             "source": {
@@ -262,6 +302,43 @@
             ],
             "description": "PHP Client for REST Json Api",
             "time": "2015-09-01 20:00:05"
+        },
+        {
+            "name": "petitchevalroux/singleton",
+            "version": "0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/petitchevalroux/php-singleton.git",
+                "reference": "cdba01b9a09022d79a6f082fb4f17cec6e0463c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/petitchevalroux/php-singleton/zipball/cdba01b9a09022d79a6f082fb4f17cec6e0463c9",
+                "reference": "cdba01b9a09022d79a6f082fb4f17cec6e0463c9",
+                "shasum": ""
+            },
+            "require-dev": {
+                "fzaninotto/faker": "~1.5",
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Singleton\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Patrick Poulain",
+                    "email": "petitchevalroux@free.fr"
+                }
+            ],
+            "description": "Implement singleton design pattern",
+            "time": "2015-09-04 12:14:32"
         },
         {
             "name": "psr/http-message",
