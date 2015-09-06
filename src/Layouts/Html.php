@@ -29,9 +29,27 @@ class Html extends \Slim\View
         $this->data = $data;
     }
 
+    /**
+     * Set html page title.
+     *
+     * @param string $title
+     */
     public function setTitle($title)
     {
         $this->htmlData['htmlTitle'] = $title;
+    }
+
+    /**
+     * Add a css file to the head part.
+     *
+     * @param string $css
+     */
+    public function addCss($css)
+    {
+        if (!isset($this->htmlData['css'])) {
+            $this->htmlData['css'] = [];
+        }
+        $this->htmlData['css'][] = $css;
     }
 
     public function display($template, $data = null)

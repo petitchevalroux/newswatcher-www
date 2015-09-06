@@ -10,6 +10,8 @@ namespace NwWebsite;
  * @property string $templatePath directory containing templates
  * @property \Mustache_Engine $mustache mustache template engine
  * @property Layouts\Html $layoutHtml html layout
+ * @property string $assetsPath directory containing assets
+ * @property string $checksumsPath directory containing checksums files
  */
 class Di extends \Di\Di
 {
