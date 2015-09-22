@@ -12,6 +12,10 @@ namespace NwWebsite;
  * @property Layouts\Html $layoutHtml html layout
  * @property string $assetsPath directory containing assets
  * @property string $checksumsPath directory containing checksums files
+ * @property \Abraham\TwitterOAuth\TwitterOAuth $twitterOAuth directory containing checksums files
+ * @property NwWebsite\Helpers\Session $session php session wrapper
+ * @property NwWebsite\Helpers\Http $http http helper
+ * @property JsonApi\Client $api newswatcher api client
  */
 class Di extends \Di\Di
 {

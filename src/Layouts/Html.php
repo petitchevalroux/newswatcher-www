@@ -67,7 +67,7 @@ class Html extends \Slim\View
             ob_end_clean();
         }
         echo $di->mustache->
-                loadTemplate('layouts\html')
+                loadTemplate('layouts'.DIRECTORY_SEPARATOR.'html')
                 ->render($this->htmlData);
     }
 }

@@ -92,4 +92,16 @@ class Html
 
         return $path;
     }
+
+    /**
+     * Return valid url for html.
+     *
+     * @return callable
+     */
+    public function appUrl()
+    {
+        return function ($url) {
+            return $url;
+        };
+    }
 }

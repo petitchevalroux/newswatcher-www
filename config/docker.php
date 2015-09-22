@@ -5,3 +5,4 @@
  */
 $httpPort = 8081;
 $httpContainerName = 'newswatcher-www';
+$apiContainerName = 'newswatcher-api';
