@@ -20,7 +20,7 @@ $app = new Slim([
         ]);
 
 $app->get('/hello/:name', function ($name) use ($app) {
-    $app->render("Hello, $name");
+    $app->render("Hello, $name", false);
 });
 
 $app->notFound(function () use ($app) {

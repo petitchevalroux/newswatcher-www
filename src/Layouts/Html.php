@@ -55,7 +55,7 @@ class Html extends \Slim\View
     public function display($template, $data = null)
     {
         $di = Di::getInstance();
-        if (!empty($this->data)) {
+        if ($this->data !== false) {
             $this->htmlData['htmlBody'] = $di->mustache
                     ->loadTemplate($template)
                     ->render($this->data);
