@@ -19,3 +19,4 @@ last-build.lock
 last-css.lock
 last-install.lock
 node_modules
+config/twitterConsumer.php

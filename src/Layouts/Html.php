@@ -55,7 +55,7 @@ class Html extends \Slim\View
     public function display($template, $data = null)
     {
         $di = Di::getInstance();
-        if (!empty($this->data)) {
+        if ($this->data !== false) {
             $this->htmlData['htmlBody'] = $di->mustache
                     ->loadTemplate($template)
                     ->render($this->data);
@@ -67,7 +67,7 @@ class Html extends \Slim\View
             ob_end_clean();
         }
         echo $di->mustache->
-                loadTemplate('layouts\html')
+                loadTemplate('layouts'.DIRECTORY_SEPARATOR.'html')
                 ->render($this->htmlData);
     }
 }
