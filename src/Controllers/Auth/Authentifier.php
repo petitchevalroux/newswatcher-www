@@ -19,6 +19,9 @@ class Authentifier extends Controller
     {
         $di = Di::getInstance();
         $di->session->set('user', $user);
+        $request = $di->slim->request();
+        $di->session->set('clientIp', $request->getIp());
+        $di->session->set('clientUserAgent', $request->getUserAgent());
     }
 
     /**

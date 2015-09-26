@@ -14,7 +14,10 @@ abstract class Authenticated extends Controller
     {
         $di = Di::getInstance();
         $this->user = $di->session->get('user');
-        if (empty($this->user)) {
+        $request = $di->slim->request();
+        $clientIp = $request->getIp();
+        $clientUserAgent = $request->getUserAgent();
+        if (empty($this->user) || $clientIp !== $di->session->get('clientIp') || $clientUserAgent !== $di->session->get('clientUserAgent')) {
             $di->slim->render('auth'.DIRECTORY_SEPARATOR.'login', ['unauthenticated' => true]);
             $di->slim->response->setStatus(401);
             $di->slim->stop();
