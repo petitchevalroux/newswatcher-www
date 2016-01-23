@@ -54,15 +54,15 @@ class Twitter extends Authentifier
     public function callback()
     {
         $di = Di::getInstance();
-        $oauthToken = $di->slim->request->get('oauth_token');
+        $requestToken = $di->slim->request->get('oauth_token');
         $sessionOauthToken = $di->session->get('oauth_token');
-        $oauthTokenSecret = $di->session->get('oauth_token_secret');
-        if ($oauthToken !== $sessionOauthToken) {
+        $requestSecret = $di->session->get('oauth_token_secret');
+        if ($requestToken !== $sessionOauthToken) {
             throw new UserException('Unable to signin using twitter, try later');
         }
         $oauthVerifier = $di->slim->request->get('oauth_verifier');
         // Fetching access token using authorize request token
-        $di->twitterOAuth->setOauthToken($oauthToken, $oauthTokenSecret);
+        $di->twitterOAuth->setOauthToken($requestToken, $requestSecret);
         $accessToken = $di->twitterOAuth->oauth(
                 'oauth/access_token', ['oauth_verifier' => $oauthVerifier]
         );
@@ -88,6 +88,18 @@ class Twitter extends Authentifier
                 'twitterToken' => $oauthToken,
                 'twitterTokenSecret' => $oauthTokenSecret,
             ]);
+
+            $twitterConsumerConfig = $di->config->get('twitterConsumer');
+            $di->twitterIndexerExchange->publish(json_encode([
+                'authentication' => [
+                    'consumer_key' => $twitterConsumerConfig->consumerKey,
+                    'consumer_secret' => $twitterConsumerConfig->consumerSecret,
+                    'access_token_key' => $oauthToken,
+                    'access_token_secret' => $oauthTokenSecret,
+                ],
+                'method' => 'user',
+                'sourceId' => 1,
+            ]));
         } else {
             $user = $user[0];
             if ($user['twitterToken'] !== $oauthToken || $user['twitterTokenSecret'] !== $oauthTokenSecret) {
@@ -98,6 +110,7 @@ class Twitter extends Authentifier
                 ]);
             }
         }
+
         $this->authentify($user);
         $di->slim->redirect('/home', 302);
     }

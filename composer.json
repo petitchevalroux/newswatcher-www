@@ -7,7 +7,8 @@
         "mustache/mustache": "~2.8",
         "petitchevalroux/di": "0.0.*",
         "petitchevalroux/configuration-factory": "0.0.*",
-        "abraham/twitteroauth": "0.6.*"
+        "abraham/twitteroauth": "0.6.*",
+        "petitchevalroux/php-amqp": "0.1.*"
     },
     "license": "GPL",
     "autoload": {
