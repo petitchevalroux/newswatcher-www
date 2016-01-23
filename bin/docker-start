@@ -22,6 +22,7 @@ $dockerHttpImage = trim(shell_exec("docker build . | egrep -o 'Successfully buil
 system('docker run -d '
         .'--name '.escapeshellarg($config->httpContainerName).' '
         .'--link '.escapeshellarg($config->apiContainerName).':api '
+        .'--link '.escapeshellarg($config->amqpContainerName).':amqp '
         .'-p '.escapeshellarg($config->httpPort).':80 '
         .'-v '.escapeshellarg($di->rootPath).':/data/http '.escapeshellarg($dockerHttpImage)
 );

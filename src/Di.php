@@ -16,6 +16,8 @@ namespace NwWebsite;
  * @property NwWebsite\Helpers\Session $session php session wrapper
  * @property NwWebsite\Helpers\Http $http http helper
  * @property JsonApi\Client $api newswatcher api client
+ * @property \AMQPConnection $amqpConnection amqp connection
+ * @property \AMQPExchange $twitterIndexerExchange twitter indexer exchange
  */
 class Di extends \Di\Di
 {
