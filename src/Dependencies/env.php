@@ -1,11 +1,17 @@
 <?php
 
 define('ENV_DEVELOPMENT', 0);
-define('ENV_PRODUCTION', 1);
+define('ENV_TEST', 1);
+define('ENV_PRODUCTION', 2);
 
-$environment = ENV_DEVELOPMENT;
+$env = getenv('NEWSWATCHER_ENV');
+if ($env === 'test') {
+    $environment = ENV_TEST;
+} else {
+    $environment = ENV_DEVELOPMENT;
+}
 
-if ($environment === ENV_DEVELOPMENT) {
+if ($environment === ENV_DEVELOPMENT || $environment === ENV_TEST) {
     ini_set('display_errors', 1);
     ini_set('error_reporting', E_ALL);
 } else {
