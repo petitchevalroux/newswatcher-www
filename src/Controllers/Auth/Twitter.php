@@ -4,6 +4,7 @@ namespace NwWebsite\Controllers\Auth;
 
 use NwWebsite\Di;
 use NwWebsite\Exceptions\User as UserException;
+use NwWebsite\Models\Sources\Twitter as TwitterSourceModel;
 
 /**
  * Twitter authentifier.
@@ -88,18 +89,14 @@ class Twitter extends Authentifier
                 'twitterToken' => $oauthToken,
                 'twitterTokenSecret' => $oauthTokenSecret,
             ]);
-
-            $twitterConsumerConfig = $di->config->get('twitterConsumer');
-            $di->twitterIndexerExchange->publish(json_encode([
-                'authentication' => [
-                    'consumer_key' => $twitterConsumerConfig->consumerKey,
-                    'consumer_secret' => $twitterConsumerConfig->consumerSecret,
-                    'access_token_key' => $oauthToken,
-                    'access_token_secret' => $oauthTokenSecret,
-                ],
-                'method' => 'user',
-                'sourceId' => 1,
-            ]));
+            // Create source
+            $source = TwitterSourceModel::get();
+            $source->method = 'user';
+            $source->accessTokenKey = $oauthToken;
+            $source->accessTokenSecret = $oauthTokenSecret;
+            $source->save();
+            // Start source indexer
+            $source->startIndexer();
         } else {
             $user = $user[0];
             if ($user['twitterToken'] !== $oauthToken || $user['twitterTokenSecret'] !== $oauthTokenSecret) {
