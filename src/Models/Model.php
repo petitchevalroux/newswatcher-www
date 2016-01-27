@@ -153,4 +153,16 @@ abstract class Model
 
         return $path;
     }
+
+    /**
+     * Associate $object to current model instance.
+     *
+     * @param \NwWebsite\Models\Model $object
+     */
+    public function associate(Model $object)
+    {
+        $resourcePath = $this->getResourcePath().$object->getResourcePath();
+        $di = Di::getInstance();
+        $di->api->createResource($resourcePath, null);
+    }
 }

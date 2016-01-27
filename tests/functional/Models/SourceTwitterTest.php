@@ -1,10 +1,10 @@
 <?php
 
 use NwWebsite\Models\Sources\Twitter as TwitterSource;
+use NwWebsite\Models\Users as User;
 
 class SourceTwitterTest extends PHPUnit_Framework_TestCase
 {
-
     public function testCreate()
     {
         $source = TwitterSource::get();
@@ -45,4 +45,16 @@ class SourceTwitterTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('lalilol', $updatedSource->accessTokenKey);
     }
 
+    public function testAssociateUser()
+    {
+        $user = User::get();
+        $user->name = 'John doe';
+        $user->save();
+        $source = TwitterSource::get();
+        $source->method = 'user';
+        $source->accessTokenKey = 'aTk';
+        $source->accessTokenSecret = 'aTks';
+        $source->save();
+        $source->associate($user);
+    }
 }
