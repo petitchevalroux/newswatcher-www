@@ -4,6 +4,8 @@ namespace NwWebsite\Controllers\Auth;
 
 use NwWebsite\Di;
 use NwWebsite\Exceptions\User as UserException;
+use NwWebsite\Models\Sources\Twitter as TwitterSourceModel;
+use NwWebsite\Models\Users as UserModel;
 
 /**
  * Twitter authentifier.
@@ -81,25 +83,23 @@ class Twitter extends Authentifier
         $credentials = $di->twitterOAuth->get('account/verify_credentials');
         $user = $di->api->getResources('/users?limit=1&filters[twitterId]='.rawurlencode($twitterUserId));
         if (empty($user)) {
-            $user = $di->api->createResource(
-                    '/users', [
-                'name' => $twitterScreenName,
-                'twitterId' => $twitterUserId,
-                'twitterToken' => $oauthToken,
-                'twitterTokenSecret' => $oauthTokenSecret,
-            ]);
-
-            $twitterConsumerConfig = $di->config->get('twitterConsumer');
-            $di->twitterIndexerExchange->publish(json_encode([
-                'authentication' => [
-                    'consumer_key' => $twitterConsumerConfig->consumerKey,
-                    'consumer_secret' => $twitterConsumerConfig->consumerSecret,
-                    'access_token_key' => $oauthToken,
-                    'access_token_secret' => $oauthTokenSecret,
-                ],
-                'method' => 'user',
-                'sourceId' => 1,
-            ]));
+            // Create user
+            $user = UserModel::get();
+            $user->name = $twitterScreenName;
+            $user->twitterId = $twitterUserId;
+            $user->twitterToken = $oauthToken;
+            $user->twitterTokenSecret = $oauthTokenSecret;
+            $user->save();
+            // Create source
+            $source = TwitterSourceModel::get();
+            $source->method = 'user';
+            $source->accessTokenKey = $oauthToken;
+            $source->accessTokenSecret = $oauthTokenSecret;
+            $source->save();
+            // Associate user to source
+            $source->associate($user);
+            // Start source indexer
+            $source->startIndexer();
         } else {
             $user = $user[0];
             if ($user['twitterToken'] !== $oauthToken || $user['twitterTokenSecret'] !== $oauthTokenSecret) {

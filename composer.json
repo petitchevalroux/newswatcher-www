@@ -21,5 +21,8 @@
             "name": "Patrick Poulain",
             "email": "petitchevalroux@free.fr"
         }
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "~5.1"
+    }
 }
