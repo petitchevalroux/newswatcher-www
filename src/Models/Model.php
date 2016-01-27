@@ -165,4 +165,35 @@ abstract class Model
         $di = Di::getInstance();
         $di->api->createResource($resourcePath, null);
     }
+
+    /**
+     * Return a collection of model instances according to filters.
+     *
+     * @param array $filters
+     * @param int   $offset
+     * @param int   $limit
+     *
+     * @return array
+     */
+    public static function getCollection($filters = [], $offset = 0, $limit = 10)
+    {
+        $params = [
+            'offset' => $offset,
+            'limit' => $limit,
+        ];
+        if (!empty($filters)) {
+            $params['filters'] = $filters;
+        }
+        $instance = self::getNewInstance();
+        $di = Di::getInstance();
+        $resources = $di->api->getResources($instance->getResourcePath(), $params);
+        $collection = [];
+        foreach ($resources as $resource) {
+            $instance = self::getNewInstance();
+            $instance->mergeResource($resource);
+            $collection[] = $instance;
+        }
+
+        return $collection;
+    }
 }

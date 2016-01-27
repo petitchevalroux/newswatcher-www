@@ -81,7 +81,7 @@ class Twitter extends Authentifier
         $di->twitterOAuth->setOauthToken($oauthToken, $oauthTokenSecret);
         // Check if access token works
         $credentials = $di->twitterOAuth->get('account/verify_credentials');
-        $user = $di->api->getResources('/users?limit=1&filters[twitterId]='.rawurlencode($twitterUserId));
+        $user = UserModel::getCollection(['twitterId' => $twitterUserId], 0, 1);
         if (empty($user)) {
             // Create user
             $user = UserModel::get();
@@ -102,12 +102,13 @@ class Twitter extends Authentifier
             $source->startIndexer();
         } else {
             $user = $user[0];
-            if ($user['twitterToken'] !== $oauthToken || $user['twitterTokenSecret'] !== $oauthTokenSecret) {
-                $user = $di->api->updateResource(
-                        '/users/'.rawurlencode($user['id']), [
-                    'twitterToken' => $oauthToken,
-                    'twitterTokenSecret' => $oauthTokenSecret,
-                ]);
+            if ($user->name !== $twitterScreenName
+                || $user->twitterToken !== $oauthToken
+                || $user->twitterTokenSecret !== $oauthTokenSecret) {
+                $user->name = $twitterScreenName;
+                $user->twitterToken = $oauthToken;
+                $user->twitterTokenSecret = $oauthTokenSecret;
+                $user->save();
             }
         }
 
