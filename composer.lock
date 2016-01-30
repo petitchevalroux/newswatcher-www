@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bc4f39a06d343ea2c0c70c79830d6fe2",
+    "hash": "50eafa8269334f4beb5ef35de91972b8",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -393,16 +393,16 @@
         },
         {
             "name": "petitchevalroux/php-jsonapi",
-            "version": "0.0.1",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/petitchevalroux/php-jsonapi.git",
-                "reference": "eae500b38a756babde56a3d65a03e78e7342fd7c"
+                "reference": "4c5665ca794e02f36d9970f62d5057267a854865"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/petitchevalroux/php-jsonapi/zipball/eae500b38a756babde56a3d65a03e78e7342fd7c",
-                "reference": "eae500b38a756babde56a3d65a03e78e7342fd7c",
+                "url": "https://api.github.com/repos/petitchevalroux/php-jsonapi/zipball/4c5665ca794e02f36d9970f62d5057267a854865",
+                "reference": "4c5665ca794e02f36d9970f62d5057267a854865",
                 "shasum": ""
             },
             "require": {
@@ -429,7 +429,7 @@
                 }
             ],
             "description": "PHP Client for REST Json Api",
-            "time": "2015-09-01 20:45:16"
+            "time": "2016-01-27 10:36:51"
         },
         {
             "name": "petitchevalroux/singleton",

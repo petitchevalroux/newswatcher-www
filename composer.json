@@ -2,7 +2,7 @@
     "name": "petitchevalroux/newswatcher-www",
     "description": "Newswatcher website",
     "require": {
-        "petitchevalroux/php-jsonapi": "0.0.*",
+        "petitchevalroux/php-jsonapi": "0.*",
         "slim/slim": "~2.6",
         "mustache/mustache": "~2.8",
         "petitchevalroux/di": "0.0.*",
