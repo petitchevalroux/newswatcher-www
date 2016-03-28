@@ -220,4 +220,21 @@ abstract class Model
     {
         return get_called_class().'/'.$this->getId();
     }
+
+    /**
+     * Return a collection of model instances corresponding to $ids.
+     *
+     * @param array $ids
+     *
+     * @return array
+     */
+    public static function getByIds($ids)
+    {
+        $instances = [];
+        foreach ($ids as $id) {
+            $instances[] = self::get($id);
+        }
+
+        return $instances;
+    }
 }
