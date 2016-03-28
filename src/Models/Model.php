@@ -198,9 +198,10 @@ abstract class Model
     }
 
     /**
-     * Apply $callback on all matching items
+     * Apply $callback on all matching items.
+     *
      * @param callable $callback
-     * @param array $filters
+     * @param array    $filters
      */
     public static function each(callable $callback, $filters = [])
     {
@@ -217,7 +218,6 @@ abstract class Model
 
     public function __toString()
     {
-        return get_called_class() . "/" . $this->getId();
+        return get_called_class().'/'.$this->getId();
     }
-
 }
