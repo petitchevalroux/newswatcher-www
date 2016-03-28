@@ -196,4 +196,28 @@ abstract class Model
 
         return $collection;
     }
+
+    /**
+     * Apply $callback on all matching items
+     * @param callable $callback
+     * @param array $filters
+     */
+    public static function each(callable $callback, $filters = [])
+    {
+        $offset = 0;
+        $limit = 100;
+        do {
+            $instances = self::getCollection($filters, $offset, $limit);
+            foreach ($instances as $instance) {
+                $callback($instance);
+            }
+            $offset += $limit;
+        } while (!empty($resources));
+    }
+
+    public function __toString()
+    {
+        return get_called_class() . "/" . $this->getId();
+    }
+
 }
