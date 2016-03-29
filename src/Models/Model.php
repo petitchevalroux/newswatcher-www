@@ -213,7 +213,7 @@ abstract class Model
                 $callback($instance);
             }
             $offset += $limit;
-        } while (!empty($resources));
+        } while (!empty($instances));
     }
 
     public function __toString()
