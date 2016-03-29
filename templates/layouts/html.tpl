@@ -6,6 +6,9 @@
         {{#css}}
         <link href="{{.}}" rel="stylesheet" type="text/css">
         {{/css}}
+        {{#js}}
+        <script type="text/javascript" src="{{.}}"></script>
+        {{/js}}
     </head>
     <body>
         <div class="container">

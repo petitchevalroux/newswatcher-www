@@ -13,6 +13,7 @@ public/assets/fonts/glyphicons-halflings-regular.woff2
 public/assets/js/bootstrap.js
 public/assets/js/bootstrap.min.js
 public/assets/js/npm.js
+public/assets/js/angular.js
 checksums/css.php
 checksums/without-css.php
 last-build.lock

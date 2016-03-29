@@ -104,4 +104,29 @@ class Html
             return $url;
         };
     }
+
+    /**
+     * Add js to the head.
+     *
+     * @return callable
+     */
+    public function addJs()
+    {
+        return function ($path) {
+            $di = Di::getInstance();
+            $di->layoutHtml->addJs($this->getJsUrl($path));
+        };
+    }
+
+    /**
+     * Return css url.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function getJsUrl($path)
+    {
+        return $this->getAssetUrl('js/'.ltrim($path, '/'));
+    }
 }
