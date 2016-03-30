@@ -10,7 +10,15 @@
         </ul>
         <ul>
             <li ng-repeat="article in articles">
-                <a href="{{article.url}}">{{article.title}}</a>
+                <div class="btn-group">
+                    <button type="button" ng-hide="getStatus() == 1" class="btn btn-default" ng-click="updateArticleStatus(article.id, 1)">
+                        <span class="glyphicon glyphicon-new-window"></span>
+                    </button>
+                    <button type="button" ng-hide="getStatus() == 2" class="btn btn-default" ng-click="updateArticleStatus(article.id, 2)">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </div>
+                <a href="{{article.url}}">{{article.title}} </a>
             </li>
         </ul>
     </div>
