@@ -38,8 +38,11 @@ class Articles extends Authenticated
             || $status === ArticlesUsersModel::STATUS_READ
             || $status === ArticlesUsersModel::STATUS_DELETED) {
             $article = ArticlesUsersModel::get($articleId);
-            $article->status = $status;
-            $article->save();
+            // We check that current user is allowed to update this
+            if ($article->user['id'] == $this->user->id) {
+                $article->status = $status;
+                $article->save();
+            }
         }
     }
 
