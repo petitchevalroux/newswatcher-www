@@ -1,15 +1,26 @@
 var nwApp = angular.module("nwApp", []);
 
-nwApp.controller('ArticleListCtrl', ['$scope', '$http',
+nwApp.controller("ArticleListCtrl", ["$scope", "$http",
     function ($scope, $http) {
-        $scope.setStatus = function(status) {
-            $scope.status = status;
+        $scope.params = {};
+
+        $scope.setStatus = function (status) {
+            $scope.params["status"] = status;
+            $scope.update();
         };
-        $scope.getStatus = function(status) {
-            return $scope.status;
+
+        $scope.getStatus = function () {
+            return $scope.params["status"];
         };
+
+        $scope.update = function () {
+            $http.get(
+                "/api/articles.json",
+                {"responseType": "json", "params": $scope.params}
+            ).then(function (response) {
+                $scope.articles = response.data;
+            });
+        };
+
         $scope.setStatus(0);
-        $http.get('/api/articles.json', {"responseType": "json"}).success(function (data) {
-            $scope.articles = data;
-        });
     }]);

@@ -12,10 +12,16 @@ class Articles extends Authenticated
     const DEFAULT_CONTENT_TYPE = 'application/json';
     public function get()
     {
+        $di = Di::getInstance();
+        $status = (int)$di->slim->request->get('status');
         $articlesIds = array_map(
-                function (ArticlesUsersModel $o) {
-            return $o->articleId;
-        }, ArticlesUsersModel::getCollection(['user' => $this->user->id, 'status' => ArticlesUsersModel::STATUS_UNREAD])
+            function (ArticlesUsersModel $o) {
+                return $o->articleId;
+            },
+            ArticlesUsersModel::getCollection([
+                'user' => $this->user->id,
+                'status' => $status
+            ])
         );
         $articles = ArticlesModel::getByIds($articlesIds);
         $this->response($articles);
