@@ -8,19 +8,18 @@
             <li ng-class="{active:getStatus() == 1}"><a href="#" ng-click="setStatus(1)">Read</a></li>
             <li ng-class="{active:getStatus() == 2}"><a href="#" ng-click="setStatus(2)">Trash</a></li>
         </ul>
-        <ul>
+        <ul class="list-unstyled">
             <li ng-repeat="article in articles">
                 <div class="btn-group">
-                    <button type="button" ng-hide="getStatus() == 1" class="btn btn-default" ng-click="updateArticleStatus(article.id, 1)">
+                    <a href="{{article.url}}" ng-hide="getStatus() == 1" class="btn btn-default" ng-click="updateArticleStatus(article.id, 1)">
                         <span class="glyphicon glyphicon-new-window"></span>
-                    </button>
+                    </a>
                     <button type="button" ng-hide="getStatus() == 2" class="btn btn-default" ng-click="updateArticleStatus(article.id, 2)">
                         <span class="glyphicon glyphicon-trash"></span>
                     </button>
                 </div>
-                <a href="{{article.url}}">{{article.title}} </a>
+                <a href="{{article.url}}">{{article.title}}</a> {{article.host}}
             </li>
         </ul>
-    </div>
     <%={{ }}=%>
 </div>

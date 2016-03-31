@@ -7,6 +7,7 @@ last-install.lock: composer.json package.json Makefile
 	mkdir -p public/assets/ &&  \
 	rsync -avz node_modules/bootstrap/dist/ public/assets && \
     cp node_modules/angular/angular.js public/assets/js/ && \
+	cp node_modules/angular-animate/angular-animate.js public/assets/js/ && \
 	touch $@;
 
 .PHONY: build
