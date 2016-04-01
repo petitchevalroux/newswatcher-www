@@ -15,6 +15,14 @@ nwApp.controller("ArticleListCtrl", ["$scope", "$http", "$q",
             return $scope.params["status"];
         };
 
+        // From https://gist.github.com/jlong/2428561
+        $scope.parseA = document.createElement('a');
+
+        $scope.getUrlHost = function(url) {
+            $scope.parseA.href = url;
+            return $scope.parseA.hostname;
+        };
+
         $scope.refresh = function (offset, count) {
             if($scope.loading) {
                 $scope.abortLoading.resolve();
@@ -35,6 +43,7 @@ nwApp.controller("ArticleListCtrl", ["$scope", "$http", "$q",
             ).then(function (response) {
                 $scope.loading = false;
                 response.data.forEach(function(article) {
+                    article.host = $scope.getUrlHost(article.url);
                     $scope.articles.push(article);
                 });
             }).catch(function (err) {
