@@ -1,4 +1,4 @@
-var nwApp = angular.module("nwApp", []);
+var nwApp = angular.module("nwApp", ['ui.bootstrap', 'ngTouch', 'ngAnimate']);
 
 nwApp.controller("ArticleListCtrl", ["$scope", "$http", "$q",
     function ($scope, $http, $q) {
@@ -7,30 +7,36 @@ nwApp.controller("ArticleListCtrl", ["$scope", "$http", "$q",
 
         $scope.setStatus = function (status) {
             $scope.params["status"] = status;
-            $scope.refresh();
+            $scope.articles = [];
+            $scope.refresh(0, 10);
         };
 
         $scope.getStatus = function () {
             return $scope.params["status"];
         };
 
-        $scope.refresh = function () {
+        $scope.refresh = function (offset, count) {
             if($scope.loading) {
                 $scope.abortLoading.resolve();
             }
             $scope.loading = true;
             $scope.abortLoading = $q.defer();
-            $scope.articles = [];
+
+            var params = $scope.params;
+            params["offset"] = offset;
+            params["count"] = count;
             $http.get(
                 "/api/articles",
                 {
                     "responseType": "json",
-                    "params": $scope.params,
+                    "params": params,
                     "timeout": $scope.abortLoading.promise
                 }
             ).then(function (response) {
                 $scope.loading = false;
-                $scope.articles = response.data;
+                response.data.forEach(function(article) {
+                    $scope.articles.push(article);
+                });
             }).catch(function (err) {
                 $scope.loading = false;
             });
@@ -40,12 +46,17 @@ nwApp.controller("ArticleListCtrl", ["$scope", "$http", "$q",
             return $scope.loading === true;
         };
 
-        $scope.updateArticleStatus = function (articleId, status) {
+        $scope.updateArticleStatus = function (articleIndex, status) {
+            if(!$scope.articles[articleIndex]) {
+                return;
+            }
+            var article = $scope.articles[articleIndex];
             $http.patch(
-                "/api/articles/" + encodeURIComponent(articleId),
+                "/api/articles/" + encodeURIComponent(article.id),
                 {"status": status}
             ).then(function () {
-                $scope.refresh();
+                $scope.articles.splice(articleIndex, 1);
+                $scope.refresh($scope.articles.length, 1);
             });
         };
 

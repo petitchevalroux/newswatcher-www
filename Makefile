@@ -4,10 +4,12 @@ install: last-install.lock
 last-install.lock: composer.json package.json Makefile
 	npm install --production && \
 	composer install --no-dev && \
-	mkdir -p public/assets/ &&  \
-	rsync -avz node_modules/bootstrap/dist/ public/assets && \
-    cp node_modules/angular/angular.js public/assets/js/ && \
-	cp node_modules/angular-animate/angular-animate.js public/assets/js/ && \
+	mkdir -p public/assets/vendor &&  \
+	rsync -avz node_modules/bootstrap/dist/ public/assets/vendor/bootstrap && \
+    rsync -avz node_modules/angular/ public/assets/vendor/angular && \
+    rsync -avz node_modules/angular-animate/ public/assets/vendor/angular-animate && \
+    rsync -avz node_modules/angular-touch/ public/assets/vendor/angular-touch && \
+	rsync -avz node_modules/angular-ui-bootstrap/dist/ public/assets/vendor/angular-ui-bootstrap && \
 	touch $@;
 
 .PHONY: build
@@ -39,4 +41,5 @@ clean:
 	rm -rf last-install.lock \
 	last-build.lock \
 	last-css.lock \
+	public/assets/vendor \
 	checksums

@@ -14,10 +14,12 @@ class Articles extends Authenticated
     {
         $di = Di::getInstance();
         $status = (int) $di->slim->request->get('status');
+        $offset = max((int) $di->slim->request->get('offset'), 0);
+        $count = min((int) $di->slim->request->get('count'), 10);
         $userArticles = ArticlesUsersModel::getCollection([
                     'user' => $this->user->id,
                     'status' => $status,
-        ]);
+        ], $offset, $count);
         $articles = [];
         foreach ($userArticles as $userArticle) {
             $article = $userArticle->article;
@@ -34,9 +36,10 @@ class Articles extends Authenticated
         $di = Di::getInstance();
         $body = $di->slim->request->getBody();
         $status = isset($body['status']) ? (int) $body['status'] : false;
-        if ($status === ArticlesUsersModel::STATUS_UNREAD
-            || $status === ArticlesUsersModel::STATUS_READ
-            || $status === ArticlesUsersModel::STATUS_DELETED) {
+        if ($status === ArticlesUsersModel::STATUS_READ
+            || $status === ArticlesUsersModel::STATUS_DELETED
+            || $status === ArticlesUsersModel::STATUS_TO_READ
+        ) {
             $article = ArticlesUsersModel::get($articleId);
             // We check that current user is allowed to update this
             if ($article->user['id'] == $this->user->id) {

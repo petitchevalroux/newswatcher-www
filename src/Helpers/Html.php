@@ -53,7 +53,7 @@ class Html
      */
     public function getCssUrl($path)
     {
-        return $this->getAssetUrl('css/'.ltrim($path, '/'));
+        return $this->getAssetUrl(ltrim($path, '/'));
     }
 
     /**
@@ -127,6 +127,6 @@ class Html
      */
     public function getJsUrl($path)
     {
-        return $this->getAssetUrl('js/'.ltrim($path, '/'));
+        return $this->getAssetUrl(ltrim($path, '/'));
     }
 }
