@@ -2,7 +2,6 @@
 public/assets/vendor/
 checksums/css.php
 checksums/without-css.php
-last-build.lock
 last-css.lock
 last-install.lock
 node_modules

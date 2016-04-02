@@ -3,7 +3,7 @@
 require __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_SEPARATOR.'autoload.php';
 // add checksum to url(...) in css files
 $di = NwWebsite\Di::getInstance();
-$files = explode(' ', trim(file_get_contents('php://stdin')));
+$files = explode(' ', trim(str_replace(["\n","\r"], ' ', file_get_contents('php://stdin'))));
 $assetsPathLength = mb_strlen($di->assetsPath);
 $checksums = require $di->rootPath.'checksums'.DIRECTORY_SEPARATOR.'without-css.php';
 foreach ($files as $f) {

@@ -4,7 +4,8 @@ require __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'vendor'.DIRECTORY_
 $di = NwWebsite\Di::getInstance();
 // Compute md5 from file in input and write it in php file in argument
 $outputFile = isset($argv[1]) ? $argv[1] : false;
-$files = explode(' ', trim(file_get_contents('php://stdin')));
+$stdin = file_get_contents('php://stdin');
+$files = explode(' ', str_replace(["\n","\r"], ' ', trim($stdin)));
 $checksums = [];
 $assetsPathLength = mb_strlen($di->assetsPath);
 foreach ($files as $f) {
