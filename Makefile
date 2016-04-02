@@ -1,40 +1,32 @@
-.PHONY: install
-install: last-install.lock
+.PHONY: all
+all: checksums/css.php
 
 last-install.lock: composer.json package.json Makefile
-	npm install --production
-	composer install --no-dev
-	mkdir -p public/assets/
-	rsync -avz node_modules/bootstrap/dist/ public/assets
-	touch $@;
-
-.PHONY: build
-build: last-build.lock install
-
-last-build.lock: checksums
+	npm install --production && \
+	composer install --no-dev && \
+	mkdir -p public/assets/vendor && \
+	rsync -avz node_modules/bootstrap/dist/ public/assets/vendor/bootstrap && \
+	rsync -avz node_modules/angular/ public/assets/vendor/angular && \
+	rsync -avz node_modules/angular-animate/ public/assets/vendor/angular-animate && \
+	rsync -avz node_modules/angular-touch/ public/assets/vendor/angular-touch && \
+	rsync -avz node_modules/angular-ui-bootstrap/dist/ public/assets/vendor/angular-ui-bootstrap && \
 	touch $@
 
-.PHONY: checksums
-checksums: checksums/without-css.php checksums/css.php
+checksums/without-css.php: last-install.lock bin/checksums.php $(shell find public/assets -type f | egrep -v "\.css$$")
+	mkdir -p checksums && \
+	find public/assets -type f | egrep -v "\.css$$" | bin/checksums.php $@
 
-checksums/without-css.php: $(shell find public/assets -type f | egrep -v "\.css$$")
-	mkdir -p checksums
-	echo $? | bin/checksums.php $@
-
-checksums/css.php: css
-	mkdir -p checksums
-	echo $(shell find public/assets -type f -name '*.css') | bin/checksums.php $@
-
-.PHONY: css
-css: last-css.lock
-
-last-css.lock: $(shell find public/assets -type f -name '*.css') checksums/without-css.php bin/addChecksumsToCss.php
-	echo $(filter-out checksums/without-css.php bin/addChecksumsToCss.php,$^) | bin/addChecksumsToCss.php
+last-css.lock: checksums/without-css.php bin/addChecksumsToCss.php $(shell find public/assets -type f -name '*.css')
+	find public/assets -type f -name '*.css' | bin/addChecksumsToCss.php && \
 	touch $@
+
+checksums/css.php: last-css.lock bin/checksums.php $(shell find public/assets -type f -name '*.css')
+	mkdir -p checksums && \
+	find public/assets -type f -name '*.css' | bin/checksums.php $@
 
 .PHONY: clean
 clean:
 	rm -rf last-install.lock \
-	last-build.lock \
 	last-css.lock \
+	public/assets/vendor \
 	checksums

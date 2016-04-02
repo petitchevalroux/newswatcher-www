@@ -52,6 +52,19 @@ class Html extends \Slim\View
         $this->htmlData['css'][] = $css;
     }
 
+    /**
+     * Add a js file to the head part.
+     *
+     * @param string $js
+     */
+    public function addJs($js)
+    {
+        if (!isset($this->htmlData['js'])) {
+            $this->htmlData['js'] = [];
+        }
+        $this->htmlData['js'][] = $js;
+    }
+
     public function display($template, $data = null)
     {
         $di = Di::getInstance();

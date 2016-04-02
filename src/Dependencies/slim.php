@@ -3,9 +3,11 @@
 namespace NwWebsite;
 
 use Slim\Slim;
+use Slim\Middleware\ContentTypes as ContentTypesMiddleware;
 use NwWebsite\Controllers\Auth\Twitter as AuthTwitterController;
 use NwWebsite\Controllers\Home as HomeController;
 use NwWebsite\Controllers\Auth\Authentifier as AuthentifierController;
+use NwWebsite\Controllers\Articles as ArticlesController;
 
 $di = Di::getInstance();
 if ($di->env === ENV_DEVELOPMENT) {
@@ -22,9 +24,8 @@ $app = new Slim([
     'view' => $di->layoutHtml,
         ]);
 
-$app->get('/hello/:name', function ($name) use ($app) {
-    $app->render("Hello, $name", false);
-});
+// Allow to decode json request body
+$app->add(new ContentTypesMiddleware());
 
 $app->get('/auth/login', function () use ($app) {
     $app->render('auth/login');
@@ -44,6 +45,14 @@ $app->get('/auth/logout', function () {
 
 $app->get('/home', function () {
     HomeController::getInstance()->home();
+});
+
+$app->get('/api/articles', function () {
+    ArticlesController::getInstance()->get();
+});
+
+$app->patch('/api/articles/:id', function ($id) {
+    ArticlesController::getInstance()->update($id);
 });
 
 $app->notFound(function () use ($app) {

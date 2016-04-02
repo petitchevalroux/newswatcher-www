@@ -53,7 +53,7 @@ class Html
      */
     public function getCssUrl($path)
     {
-        return $this->getAssetUrl('css/'.ltrim($path, '/'));
+        return $this->getAssetUrl(ltrim($path, '/'));
     }
 
     /**
@@ -103,5 +103,30 @@ class Html
         return function ($url) {
             return $url;
         };
+    }
+
+    /**
+     * Add js to the head.
+     *
+     * @return callable
+     */
+    public function addJs()
+    {
+        return function ($path) {
+            $di = Di::getInstance();
+            $di->layoutHtml->addJs($this->getJsUrl($path));
+        };
+    }
+
+    /**
+     * Return css url.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function getJsUrl($path)
+    {
+        return $this->getAssetUrl(ltrim($path, '/'));
     }
 }
