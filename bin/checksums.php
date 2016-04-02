@@ -5,7 +5,7 @@ $di = NwWebsite\Di::getInstance();
 // Compute md5 from file in input and write it in php file in argument
 $outputFile = isset($argv[1]) ? $argv[1] : false;
 $stdin = file_get_contents('php://stdin');
-$files = explode(' ', str_replace(["\n","\r"], ' ', trim($stdin)));
+$files = explode(' ', str_replace(["\n", "\r"], ' ', trim($stdin)));
 $checksums = [];
 $assetsPathLength = mb_strlen($di->assetsPath);
 foreach ($files as $f) {

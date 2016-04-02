@@ -17,6 +17,9 @@
   "homepage": "https://github.com/petitchevalroux/newswatcher-www#readme",
   "dependencies": {
     "angular": "^1.5.3",
-    "bootstrap": "^3.3.5"
+    "angular-animate": "^1.5.3",
+    "angular-touch": "^1.5.3",
+    "angular-ui-bootstrap": "^1.2.5",
+    "bootstrap": "^3.3.6"
   }
 }
